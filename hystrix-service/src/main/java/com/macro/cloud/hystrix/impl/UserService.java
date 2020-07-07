@@ -3,6 +3,8 @@ package com.macro.cloud.hystrix.impl;
 import com.macro.cloud.domain.CommonResult;
 import com.macro.cloud.domain.User;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheRemove;
+import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +33,57 @@ public class UserService {
         return new CommonResult(defaultUser);
     }
 
+    @HystrixCommand(fallbackMethod = "getDefaultUser",
+            commandKey = "getUserCommand",
+            groupKey = "getUserGroup",
+            threadPoolKey = "getUserThreadPool")
+    public CommonResult getUserCommand(@PathVariable Long id) {
+        return restTemplate.getForObject(userServiceUrl + "/user/{1}",
+                CommonResult.class,
+                id);
+    }
+
+    @HystrixCommand(fallbackMethod = "getDefaultUser2",
+            ignoreExceptions = {NullPointerException.class})
+    public CommonResult getUserException(@PathVariable Long id) {
+        if (id == 1) {
+            throw new IndexOutOfBoundsException();
+        } else if (id == 2) {
+            throw new NullPointerException();
+        }
+        return restTemplate.getForObject(userServiceUrl + "/user/{1}",
+                CommonResult.class,
+                id);
+    }
+
+    public CommonResult getDefaultUser2(@PathVariable Long id, Throwable e) {
+        LOGGER.error("getDefaultUser2 id:{}, throwable class:{}", id, e.getClass());
+        User defaultUser = new User(-2L, "defaultUser2", "234567");
+        return new CommonResult(defaultUser);
+    }
+
+    @CacheResult(cacheKeyMethod = "getCacheKey")
+    @HystrixCommand(fallbackMethod = "getDefaultUser",
+            commandKey = "getUserCache")
+    public CommonResult getUserCache(Long id) {
+        LOGGER.info("getUserCache id:{}", id);
+        return restTemplate.getForObject(userServiceUrl + "/user/{1}",
+                CommonResult.class,
+                id);
+    }
+
+    public String getCacheKey(Long id) {
+        return String.valueOf(id);
+    }
+
+    @CacheRemove(commandKey = "getUserCache",
+            cacheKeyMethod = "getCacheKey")
+    @HystrixCommand
+    public CommonResult removeCache(Long id) {
+        LOGGER.info("remove cache id : {}", id);
+        return restTemplate.postForObject(userServiceUrl + "/user/delete/{1}",
+                null,
+                CommonResult.class,
+                id);
+    }
 }

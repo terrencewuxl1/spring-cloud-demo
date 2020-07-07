@@ -28,7 +28,7 @@ public class UserController {
     @GetMapping("/{id}")
     public CommonResult<User> getUser(@PathVariable Long id) {
         User user = userService.getUser(id);
-        LOGGER.info(" get user info by id, use name is {}", user.getUsername());
+        LOGGER.info(" get user info by id, use name is {}", user == null ? null : user.getUsername());
         return new CommonResult<>(user);
     }
 

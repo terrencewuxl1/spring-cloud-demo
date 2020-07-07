@@ -19,4 +19,31 @@ public class UserHystrixController {
     public CommonResult testFallback(@PathVariable Long id){
         return userService.getUser(id);
     }
+
+    @GetMapping("/testCommand/{id}")
+    public CommonResult testCommand(@PathVariable Long id){
+        return userService.getUserCommand(id);
+    }
+
+    @GetMapping("/testException/{id}")
+    public CommonResult testException(@PathVariable Long id){
+        return userService.getUserException(id);
+    }
+
+    @GetMapping("/testCache/{id}")
+    public  CommonResult testCache(@PathVariable Long id){
+        userService.getUserCache(id);
+        userService.getUserCache(id);
+        userService.getUserCache(id);
+        return new CommonResult("success.",200);
+    }
+
+    @GetMapping("/testRemoveCache/{id}")
+    public  CommonResult testRemoveCache(@PathVariable Long id){
+        userService.getUserCache(id);
+        userService.removeCache(id);
+        userService.getUserCache(id);
+        return new CommonResult("success.",200);
+    }
+
 }
