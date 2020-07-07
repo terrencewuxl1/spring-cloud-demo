@@ -33,11 +33,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -68,6 +63,7 @@
         <module>user-service</module>
         <module>ribbon-service</module>
         <module>hystrix-service</module>
+        <module>stub</module>
     </modules>
 
 </project>

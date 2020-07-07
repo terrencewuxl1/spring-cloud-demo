@@ -1,4 +1,4 @@
-package com.macro.cloud.service.impl;
+package com.macro.cloud.hystrix.impl;
 
 import com.macro.cloud.domain.User;
 import com.macro.cloud.service.UserService;
@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
     public void create(User user) {
         userList.add(user);
     }
+
 
     @Override
     public User getUser(Long id) {
