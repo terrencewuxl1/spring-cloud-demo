@@ -24,6 +24,12 @@ public class UserRibbonController {
                 id);
     }
 
+    @GetMapping("/all")
+    public CommonResult getAllUser() {
+        return restTemplate.getForObject(userServiceUrl + "/user/getAllUsers",
+                CommonResult.class);
+    }
+
     @GetMapping("/getByUsername")
     public CommonResult getByUsername(@RequestParam String username) {
         return restTemplate.getForObject(

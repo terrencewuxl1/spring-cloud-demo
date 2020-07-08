@@ -47,12 +47,5 @@ public class CommonResult<T> {
         this.code = code;
     }
 
-    @Override
-    public String toString() {
-        return "CommonResult{" +
-                "data=" + data +
-                ", message='" + message + '\'' +
-                ", code=" + code +
-                '}';
-    }
+
 }

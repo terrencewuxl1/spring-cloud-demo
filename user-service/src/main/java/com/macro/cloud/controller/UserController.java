@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -34,6 +35,17 @@ public class UserController {
 
     @GetMapping("/getUserByIds")
     public CommonResult<List<User>> getUserByIds(@RequestParam List<Long> ids) {
+        List<User> userList = userService.getUserByIds(ids);
+        LOGGER.info("get user list by id list, result list is {}", userList);
+        return new CommonResult<>(userList);
+    }
+
+    @GetMapping("/getAllUsers")
+    public CommonResult<List<User>> getAllUsers() {
+        List<Long> ids = new ArrayList();
+        ids.add(1L);
+        ids.add(2L);
+        ids.add(3L);
         List<User> userList = userService.getUserByIds(ids);
         LOGGER.info("get user list by id list, result list is {}", userList);
         return new CommonResult<>(userList);

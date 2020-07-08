@@ -10,21 +10,29 @@
         <module name="stub" />
         <module name="eureka-security-server" />
         <module name="eureka-client" />
+        <module name="feign-service" />
         <module name="ribbon-service" />
         <module name="eureka-server" />
+        <module name="hystrix-dashboard" />
         <module name="user-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="turbine-service" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="eureka-client" options="-parameters" />
       <module name="eureka-security-server" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
+      <module name="feign-service" options="-parameters" />
+      <module name="hystrix-dashboard" options="-parameters" />
       <module name="hystrix-service" options="-parameters" />
       <module name="ribbon-service" options="-parameters" />
-      <module name="spring-cloud-demo" options="-parameters" />
+      <module name="spring-cloud-demo" options="" />
       <module name="stub" options="-parameters" />
+      <module name="turbine-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>

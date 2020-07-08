@@ -1,4 +1,4 @@
-package com.macro.cloud.hystrix.impl;
+package com.macro.cloud.service.impl;
 
 import com.macro.cloud.domain.User;
 import com.macro.cloud.service.UserService;
@@ -62,7 +62,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUserByIds(List<Long> ids) {
-        return userList.stream().filter(userItem -> ids.contains(userItem.getId()))
+        return userList.stream()
+                .filter(userItem -> ids.contains(userItem.getId()))
                 .collect(Collectors.toList());
     }
 
