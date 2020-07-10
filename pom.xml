@@ -59,6 +59,7 @@
         <module>stub</module>
         <module>hystrix-dashboard</module>
         <module>feign-service</module>
+        <module>zuul-proxy</module>
     </modules>
 
 </project>
