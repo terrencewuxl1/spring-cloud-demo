@@ -1,0 +1,24 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      profile: dev
+      label: dev
+      name: config
+      discovery:
+        enabled: true
+        service-id: config-server
+      username: terrencewuxl
+      password: 123456
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+       include: 'refresh'
